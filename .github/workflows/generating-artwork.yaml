@@ -15,6 +15,9 @@ jobs:
     - name: generate ASCII artwork
       run: cowsay -f dragon "Run for cover ... I am Dragon ... RAWR" >> dragon.txt
 
+    - name: Run artwork
+      run: cat dragon.txt
+
     - name: Test file exist
       run: grep -i "dragon" dragon.txt
 

@@ -6,9 +6,6 @@ jobs:
   first-job: 
     runs-on: ubuntu-latest
     steps:
-    - name: checkout repo
-      uses: actions/checkout@v4
-
     - name: Install cowsay 
       run: sudo apt-get install cowsay -y
     
@@ -21,16 +18,21 @@ jobs:
     - name: Test file exist
       run: grep -i "dragon" dragon.txt
 
-    - name: welcome message
-      run: | 
-        echo "This is my first job"
-        ls -la
-        cat README.md
-  
+    - name: adding action upload artifact
+      uses: actions/upload-artifact@v4
+      with: 
+        name: my-artifact
+        path: dragon.txt 
+
   second-job:
     needs: first-job
     runs-on: ubuntu-latest
     steps: 
+    - name: downloading artifact
+      uses: actions/download-artifact@v4
+      with: 
+        name: my-dragon-artifact
+
     - name: sleep in 10 seconds
       run: sleep 10
     
@@ -41,6 +43,11 @@ jobs:
     needs: [first-job,second-job]
     runs-on: ubuntu-latest
     steps:
+    - name: downloading artifact
+      uses: actions/download-artifact@v4
+      with: 
+        name: my-dragon-artifact
+
     - name: read the file
       run: cat dragon.txt
     

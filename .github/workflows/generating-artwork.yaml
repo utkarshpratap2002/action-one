@@ -1,6 +1,8 @@
 name: Generating ASCII Artwork
 
-on: push 
+on: 
+  # push
+  workflow_dispatch 
 
 jobs: 
   first-job: 
@@ -33,8 +35,8 @@ jobs:
       with: 
         name: my-dragon-artifact
 
-    - name: sleep in 10 seconds
-      run: sleep 10
+    - name: sleep in 300 seconds
+      run: sleep 300
     
     - name: test file exists
       run: grep -i "dragon" dragon.txt
